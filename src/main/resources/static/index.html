@@ -4,6 +4,7 @@
         <title>PayPal Braintree Integration</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body>
@@ -13,10 +14,51 @@
         </div>
         <div class="container-fluid">
             <div class="d-flex justify-content-center">
-                <div class="col-sm-6">
-                    <h2 class="bg-primary text-center">Environment Configuration</h2>
-                    <p>Details about the environment to all integrations</p>
+                <div class="card shadow">
+                    <h2 class="card-header text-center bg-primary">Environment Configuration</h2>
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="environment">Environment</label>
+                                        <input type="text" class="form-control" value="Sandbox" id="environment" readonly />
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="country">Country</label>
+                                        <input type="text" class="form-control" value="Brazil" id="country" readonly />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="card">
+                            <dic class="card-header"><button class="btn btn-info btn-block" data-toggle="collapse" data-target="#accountOptions">Account Options</button></dic>
+
+                            <div id="accountOptions" class="collapse" >
+                                <form>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="currency">Currency Code</label>
+                                                <input type="text" class="form-control" id="currency" value="BRL" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="amount">Transaction Amount</label>
+                                                <input type="number" id="amount" class="form-control" value="5" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <hr/>
             </div>
         </div>
     </body>
