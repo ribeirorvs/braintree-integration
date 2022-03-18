@@ -6,6 +6,10 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- includes the Braintree JS client SDK -->
+        <script src="https://js.braintreegateway.com/web/dropin/1.33.0/js/dropin.min.js"></script>
+
     </head>
     <body>
         <div class="jumbotron text-center">
@@ -15,7 +19,7 @@
         <div class="container-fluid">
             <div class="d-flex justify-content-center">
                 <div class="card shadow">
-                    <h2 class="card-header text-center bg-primary">Environment Configuration</h2>
+                    <h2 class="card-header text-light text-center bg-primary">Environment Configuration</h2>
                     <div class="card-body">
                         <form>
                             <div class="row">
@@ -36,17 +40,17 @@
                         <div class="card">
                             <dic class="card-header"><button class="btn btn-info btn-block" data-toggle="collapse" data-target="#accountOptions">Account Options</button></dic>
 
-                            <div id="accountOptions" class="collapse" >
+                            <div id="accountOptions" class="collapse mt-3" >
                                 <form>
                                     <div class="row">
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group ml-3 ">
                                                 <label for="currency">Currency Code</label>
                                                 <input type="text" class="form-control" id="currency" value="BRL" readonly />
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group mr-3">
                                                 <label for="amount">Transaction Amount</label>
                                                 <input type="number" id="amount" class="form-control" value="5" />
                                             </div>
@@ -59,7 +63,57 @@
                 </div>
             </div>
             <hr/>
+            <div class="col-sm-5 shadow">
+                <div class="card">
+                    <h2 class="card-header text-light text-center bg-primary">Transaction Sale</div>
+                    <div class="card-body">
+                        <div id="dropin-wrapper">
+                            <div id="checkout-message"></div>
+                            <div id="dropin-container"></div>
+                            <button class="btn btn-primary" id="submit-button">Submit payment</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        <script>
+            var button = document.querySelector('#submit-button');
+          
+            braintree.dropin.create({
+              // Insert your tokenization key here
+              authorization: 'sandbox_tvshsy3g_w8b33jczk3ys342p',
+              container: '#dropin-container'
+            }, function (createErr, instance) {
+              button.addEventListener('click', function () {
+                instance.requestPaymentMethod(function (requestPaymentMethodErr, payload) {
+                  // When the user clicks on the 'Submit payment' button this code will send the
+                  // encrypted payment information in a variable called a payment method nonce
+                  $.ajax({
+                    type: 'POST',
+                    url: 'localhost:8080/checkout',
+                    data: {'paymentMethodNonce': payload.nonce}
+                  }).done(function(result) {
+                    // Tear down the Drop-in UI
+                    instance.teardown(function (teardownErr) {
+                      if (teardownErr) {
+                        console.error('Could not tear down Drop-in UI!');
+                      } else {
+                        console.info('Drop-in UI has been torn down!');
+                        // Remove the 'Submit payment' button
+                        $('#submit-button').remove();
+                      }
+                    });
+          
+                    if (result.success) {
+                      $('#checkout-message').html('<h1>Success</h1><p>Your Drop-in UI is working! Check your <a href="https://sandbox.braintreegateway.com/login">sandbox Control Panel</a> for your test transactions.</p><p>Refresh to try another transaction.</p>');
+                    } else {
+                      console.log(result);
+                      $('#checkout-message').html('<h1>Error</h1><p>Check your console.</p>');
+                    }
+                  });
+                });
+              });
+            });
+        </script>
     </body>
 </html>
