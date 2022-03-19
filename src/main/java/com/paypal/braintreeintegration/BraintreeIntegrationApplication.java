@@ -5,18 +5,36 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import com.braintreegateway.*;
+import java.math.BigDecimal;
 
 @SpringBootApplication
 @RestController
 public class BraintreeIntegrationApplication {
 
+	private static BraintreeGateway gateway = new BraintreeGateway(
+		Environment.SANDBOX,
+		"w8b33jczk3ys342p",
+		"799mw428s9hv5zxx",
+		"8c6ca7db051b6ee29ee7db31905dc5a0"
+	);
+
 	public static void main(String[] args) {
 		SpringApplication.run(BraintreeIntegrationApplication.class, args);
 	}
 
-	@GetMapping("/hello")
-	public String hello(@RequestParam(value = "name", defaultValue = "World") String name){
-		return String.format("Hello %s!", name);
+	@GetMapping("/checkout")
+	public void checkout(@RequestParam(value = "paymentMethodNonce") String paymentMethodNonce){
+		String nonceFromTheClient = paymentMethodNonce;
+		TransactionRequest request = new TransactionRequest()
+  			.amount(new BigDecimal("10.00"))
+  			.paymentMethodNonce(nonceFromTheClient)
+  			.options()
+    			.submitForSettlement(true)
+    			.done();
+
+		Result<Transaction> result = gateway.transaction().sale(request);
+		System.out.println(result);
 	}
 
 }
