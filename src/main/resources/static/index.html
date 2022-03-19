@@ -87,12 +87,13 @@
               container: '#dropin-container'
             }, function (createErr, instance) {
               button.addEventListener('click', function () {
+                console.log("Aqui");
                 instance.requestPaymentMethod(function (requestPaymentMethodErr, payload) {
                   // When the user clicks on the 'Submit payment' button this code will send the
                   // encrypted payment information in a variable called a payment method nonce
                   $.ajax({
                     type: 'POST',
-                    url: 'localhost:8080/checkout',
+                    url: '/checkout',
                     data: {'paymentMethodNonce': payload.nonce}
                   }).done(function(result) {
                     // Tear down the Drop-in UI
