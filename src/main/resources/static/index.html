@@ -73,19 +73,34 @@
                     </ul>
                 </nav>
             </div>
-            <div class="col-sm-5">
-                <div class="card shadow">
-                    <button class="btn card-header text-light text-center bg-primary" data-toggle="collapse" data-target="#saleTokenization">Sale with Tokenization</button>
-                    <div class="card-body collapse" id="saleTokenization">
-                        <div id="dropin-wrapper">
-                            <div id="checkout-message"></div>
-                            <div id="dropin-container"></div>
-                            <button class="btn btn-primary" id="submit-button">Submit payment</button>
+            <div class="row m-3 justify-content-around">
+                <div class="col-sm-5">
+                    <div class="card shadow">
+                        <button class="btn card-header text-light text-center bg-primary" data-toggle="collapse" data-target="#saleTokenization">Sale with Tokenization</button>
+                        <div class="card-body collapse" id="saleTokenization">
+                            <div id="dropin-wrapper">
+                                <div id="tokenization-checkout-message"></div>
+                                <div id="tokenization-dropin-container"></div>
+                                <button class="btn btn-primary" id="tokenization-submit-button">Submit payment</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="card shadow">
+                        <button class="btn card-header text-light text-center bg-primary" data-toggle="collapse" data-target="#saleClientToken">Sale with Client Token</button>
+                        <div class="card-body collapse" id="saleClientToken">
+                            <div id="dropin-wrapper">
+                                <div id="clientToken-checkout-message"></div>
+                                <div id="clientToken-dropin-container"></div>
+                                <button class="btn btn-primary" id="clientToken-submit-button">Submit payment</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <script src="./js/dropinTokenization.js"></script>
+        <script src="./js/dropinClientToken.js"></script>
     </body>
 </html>

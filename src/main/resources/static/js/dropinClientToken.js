@@ -1,9 +1,9 @@
-var button = document.querySelector('#tokenization-submit-button');
+var button = document.querySelector('#clientToken-submit-button');
           
 braintree.dropin.create({
     // Insert your tokenization key here
     authorization: 'sandbox_tvshsy3g_w8b33jczk3ys342p',
-    container: '#tokenization-dropin-container'
+    container: '#clientToken-dropin-container'
 }, function (createErr, instance) {
     button.addEventListener('click', function () {
     console.log("Aqui");
@@ -22,15 +22,15 @@ braintree.dropin.create({
             } else {
             console.info('Drop-in UI has been torn down!');
             // Remove the 'Submit payment' button
-            $('#tokenization-submit-button').remove();
+            $('#clientToken-submit-button').remove();
             }
         });
 
         if (result.success) {
-            $('#tokenization-checkout-message').html('<h1>Success</h1><p>Your Drop-in UI is working! Check your <a href="https://sandbox.braintreegateway.com/login">sandbox Control Panel</a> for your test transactions.</p><p>Refresh to try another transaction.</p>');
+            $('#clientToken-checkout-message').html('<h1>Success</h1><p>Your Drop-in UI is working! Check your <a href="https://sandbox.braintreegateway.com/login">sandbox Control Panel</a> for your test transactions.</p><p>Refresh to try another transaction.</p>');
         } else {
             console.log(result);
-            $('#tokenization-checkout-message').html('<h1>Error</h1><p>Check your console.</p>');
+            $('#clientToken-checkout-message').html('<h1>Error</h1><p>Check your console.</p>');
         }
         });
     });
