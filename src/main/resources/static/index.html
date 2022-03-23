@@ -64,11 +64,19 @@
                     </div>
                 </div>
             </div>
-            <hr/>
-            <div class="col-sm-5 shadow">
-                <div class="card">
-                    <h2 class="card-header text-light text-center bg-primary">Transaction Sale</div>
-                    <div class="card-body">
+            <!-- navbar with the integrations title -->
+            <div class="d-flex m-3">
+                <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top col-sm-12">
+                    <a class="navbar-brand" href="#"><img src="./img/logo.png"/></a>
+                    <ul class="navbar-nav">
+                        <li class="nav-item nav-link active">Drop-in UI</li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm-5">
+                <div class="card shadow">
+                    <button class="btn card-header text-light text-center bg-primary" data-toggle="collapse" data-target="#saleTokenization">Sale with Tokenization</button>
+                    <div class="card-body collapse" id="saleTokenization">
                         <div id="dropin-wrapper">
                             <div id="checkout-message"></div>
                             <div id="dropin-container"></div>
@@ -78,45 +86,6 @@
                 </div>
             </div>
         </div>
-        <script>
-            var button = document.querySelector('#submit-button');
-          
-            braintree.dropin.create({
-              // Insert your tokenization key here
-              authorization: 'sandbox_tvshsy3g_w8b33jczk3ys342p',
-              container: '#dropin-container'
-            }, function (createErr, instance) {
-              button.addEventListener('click', function () {
-                console.log("Aqui");
-                instance.requestPaymentMethod(function (requestPaymentMethodErr, payload) {
-                  // When the user clicks on the 'Submit payment' button this code will send the
-                  // encrypted payment information in a variable called a payment method nonce
-                  $.ajax({
-                    type: 'POST',
-                    url: '/checkout',
-                    data: {'paymentMethodNonce': payload.nonce}
-                  }).done(function(result) {
-                    // Tear down the Drop-in UI
-                    instance.teardown(function (teardownErr) {
-                      if (teardownErr) {
-                        console.error('Could not tear down Drop-in UI!');
-                      } else {
-                        console.info('Drop-in UI has been torn down!');
-                        // Remove the 'Submit payment' button
-                        $('#submit-button').remove();
-                      }
-                    });
-          
-                    if (result.success) {
-                      $('#checkout-message').html('<h1>Success</h1><p>Your Drop-in UI is working! Check your <a href="https://sandbox.braintreegateway.com/login">sandbox Control Panel</a> for your test transactions.</p><p>Refresh to try another transaction.</p>');
-                    } else {
-                      console.log(result);
-                      $('#checkout-message').html('<h1>Error</h1><p>Check your console.</p>');
-                    }
-                  });
-                });
-              });
-            });
-        </script>
+        <script src="./js/dropinTokenization.js"></script>
     </body>
 </html>
