@@ -3,6 +3,7 @@ package com.paypal.braintreeintegration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.braintreegateway.*;
@@ -23,8 +24,9 @@ public class BraintreeIntegrationApplication {
 	}
 
 	@PostMapping("/checkout")
-	public Result<Transaction> checkout(@RequestParam(value = "paymentMethodNonce") String paymentMethodNonce) {
+	public Result<Transaction> Checkout(@RequestParam(value = "paymentMethodNonce") String paymentMethodNonce) {
 		String nonceFromTheClient = paymentMethodNonce;
+		System.out.println("Test");
 		TransactionRequest request = new TransactionRequest()
 				.amount(new BigDecimal("10.00"))
 				.paymentMethodNonce(nonceFromTheClient)
@@ -35,6 +37,16 @@ public class BraintreeIntegrationApplication {
 		Result<Transaction> result = gateway.transaction().sale(request);
 		System.out.println(result);
 		return result;
+	}
+
+	@GetMapping("/client-token")
+	public String ClientToken() {
+
+		final String clientToken = gateway.clientToken().generate();
+
+		System.out.println(clientToken);
+
+		return clientToken;
 	}
 
 }

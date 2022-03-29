@@ -1,15 +1,16 @@
-var button = document.querySelector('#clientToken-submit-button');
-          
+var buttonToken = document.querySelector('#clientToken-submit-button');
+var clientToken = new URLSearchParams(location.search).get('clientToken');
+
 braintree.dropin.create({
     // Insert your tokenization key here
-    authorization: 'sandbox_tvshsy3g_w8b33jczk3ys342p',
+    authorization: clientToken,
     container: '#clientToken-dropin-container'
 }, function (createErr, instance) {
-    button.addEventListener('click', function () {
-    console.log("Aqui");
+    buttonToken.addEventListener('click', function () {
     instance.requestPaymentMethod(function (requestPaymentMethodErr, payload) {
         // When the user clicks on the 'Submit payment' button this code will send the
         // encrypted payment information in a variable called a payment method nonce
+        console.log(clientToken);
         $.ajax({
         type: 'POST',
         url: '/checkout',

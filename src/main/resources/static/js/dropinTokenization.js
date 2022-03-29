@@ -1,11 +1,11 @@
-var button = document.querySelector('#tokenization-submit-button');
+var buttonToken = document.querySelector('#tokenization-submit-button');
           
 braintree.dropin.create({
     // Insert your tokenization key here
     authorization: 'sandbox_tvshsy3g_w8b33jczk3ys342p',
     container: '#tokenization-dropin-container'
 }, function (createErr, instance) {
-    button.addEventListener('click', function () {
+    buttonToken.addEventListener('click', function () {
     console.log("Aqui");
     instance.requestPaymentMethod(function (requestPaymentMethodErr, payload) {
         // When the user clicks on the 'Submit payment' button this code will send the

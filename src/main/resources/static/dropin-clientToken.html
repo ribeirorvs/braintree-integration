@@ -6,7 +6,6 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="./js/clientToken.js"></script>
 
         <!-- includes the Braintree JS client SDK -->
         <script src="https://js.braintreegateway.com/web/dropin/1.33.0/js/dropin.min.js"></script>
@@ -14,8 +13,8 @@
         <script src="http://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
 
     </head>
-    <body onload="generateClientToken()">
-        <a href="#" class="text-decoration-none">
+    <body>
+        <a href="index.html" class="text-decoration-none">
             <div class="jumbotron text-center">
                 
                 <h1>PayPal Braintree Integration</h1>
@@ -79,30 +78,19 @@
             <div class="row m-3 justify-content-around">
                 <div class="col-sm-5">
                     <div class="card shadow">
-                        <button class="btn card-header text-light text-center bg-primary" data-toggle="collapse" data-target="#saleTokenization">Sale with Tokenization</button>
-                        <div class="card-body collapse" id="saleTokenization">
+                        <h2 class="card-header text-light text-center bg-primary">Sale with Client Token</h2>
+                        <div class="card-body" id="saleClientToken">
                             <div id="dropin-wrapper">
-                                <div id="tokenization-checkout-message"></div>
-                                <div id="tokenization-dropin-container"></div>
-                                <button class="btn btn-primary" id="tokenization-submit-button">Submit Payment</button>
+                                    <div id="clientToken-checkout-message"></div>
+                                    <div id="clientToken-dropin-container"></div>
+                                    <input type="hidden" id="nonce" name="payment_method_nonce"/>
+                                    <input type="submit" class="btn btn-primary" id="clientToken-submit-button" value="Submit Payment" />
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-5">
-                    <div class="card shadow">
-                        <button class="btn card-header text-light text-center bg-primary" data-toggle="collapse" data-target="#saleClientToken">Sale with Client Token</button>
-                        <div class="card-body collapse mx-auto" id="saleClientToken">
-                            <form action="dropin-clientToken.html" method="get">
-                                <input type="hidden" id="clientToken" name="clientToken" value="sandbox_tvshsy3g_w8b33jczk3ys342p" />
-                                <input type="submit" class="btn btn-primary" id="generateClientToken-submit-button" value="Create Client Token" />
-                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <script src="./js/dropinTokenization.js"></script>
-        <script src="./js/clientToken.js"></script>
+        <script src="./js/dropinClientToken.js"></script>
     </body>
 </html>
