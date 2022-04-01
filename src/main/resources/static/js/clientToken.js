@@ -6,7 +6,6 @@ function generateClientToken(){
         type: 'GET',
         url: '/client-token'
         }).done(function(result) {
-        // Tear down the Drop-in UI
             clientToken.value = result
             console.info(clientToken)
     });

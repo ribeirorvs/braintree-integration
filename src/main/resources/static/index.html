@@ -7,11 +7,13 @@
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
         <script src="./js/clientToken.js"></script>
+        <script src="./js/ppplus.js"></script>
 
         <!-- includes the Braintree JS client SDK -->
         <script src="https://js.braintreegateway.com/web/dropin/1.33.0/js/dropin.min.js"></script>
         <!-- includes jQuery -->
         <script src="http://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://www.paypalobjects.com/webstatic/ppplusdcc/ppplusdcc.min.js" type="text/javascript"></script>
 
     </head>
     <body onload="generateClientToken()">
@@ -73,10 +75,14 @@
                     <a class="navbar-brand" href="#"><img src="./img/logo.png"/></a>
                     <ul class="navbar-nav">
                         <li class="nav-item nav-link active">Drop-in UI</li>
+                        <li class="nat-item nav-link">PayPal Plus</li>
                     </ul>
                 </nav>
             </div>
-            <div class="row m-3 justify-content-around">
+            <div class="row m-3 justify-content-around border rounded-lg p-3">
+                <header class="col-sm-12 d-flex justify-content-center">
+                    <h3>Drop-in Integrations</h3>
+                </header>
                 <div class="col-sm-5">
                     <div class="card shadow">
                         <button class="btn card-header text-light text-center bg-primary" data-toggle="collapse" data-target="#saleTokenization">Sale with Tokenization</button>
@@ -97,6 +103,20 @@
                                 <input type="hidden" id="clientToken" name="clientToken" value="sandbox_tvshsy3g_w8b33jczk3ys342p" />
                                 <input type="submit" class="btn btn-primary" id="generateClientToken-submit-button" value="Create Client Token" />
                             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row m-3 p-3 justify-content-around border rounded-lg">
+                <header class="col-sm-12 d-flex justify-content-center">
+                    <h3>PayPal Plus Integrations</h3>
+                </header>
+                <div class="col-sm-8">
+                    <div class="card shadow">
+                        <button class="btn card-header text-light text-center bg-primary" data-toggle="collapse" data-target="#ppplusCard" onclick="takeAuthToken()">Sale with Client Token</button>
+                        <div class="card-body collapse mx-auto" id="ppplusCard">
+                            <div id="ppplus">
+                            </div>                            
                         </div>
                     </div>
                 </div>

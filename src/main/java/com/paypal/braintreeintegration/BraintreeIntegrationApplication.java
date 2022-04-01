@@ -35,17 +35,12 @@ public class BraintreeIntegrationApplication {
 				.done();
 
 		Result<Transaction> result = gateway.transaction().sale(request);
-		System.out.println(result);
 		return result;
 	}
 
 	@GetMapping("/client-token")
 	public String ClientToken() {
-
 		final String clientToken = gateway.clientToken().generate();
-
-		System.out.println(clientToken);
-
 		return clientToken;
 	}
 
