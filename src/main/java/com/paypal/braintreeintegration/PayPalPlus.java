@@ -1,6 +1,7 @@
 package com.paypal.braintreeintegration;
 
 import java.util.ArrayList;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.client.RestTemplate;
@@ -14,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
+import com.paypal.braintreeintegration.pojo.PPResponse;
+
 @SpringBootApplication
 @RestController
 public class PayPalPlus {
@@ -23,10 +26,11 @@ public class PayPalPlus {
     private HttpHeaders headers = new HttpHeaders();
     private List<MediaType> mediaType = new ArrayList<MediaType>();
     private String simpleBody;
-    private MediaType simpleMediaType;
     private HttpEntity<String> bodyAndHeaders;
     private String clientId;
     private String secret;
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    PPResponse aToken;
 
     @GetMapping("/aToken")
     public String AToken() {
@@ -36,8 +40,6 @@ public class PayPalPlus {
         clientId = "AfNUoefz-HDlfM6R65On7kiXhARQ6WLXC2aXdECEvU-DZXKW7dVtAuop-Xyh4FDh-dASnMwUXcBnTIpq";
         secret = "EMO0dUQne4dDa7ij0X3KirsSmfTH-90yzx0jZgV4yVvtaWbnwgEnnorMugOipYB30PilA2I1jlCJ3NIl";
         mediaType.add(MediaType.APPLICATION_JSON);
-        simpleMediaType = MediaType.parseMediaType("application/x-www-form-urlencoded");
-        System.out.println(simpleMediaType.toString());
         simpleBody = "grant_type=client_credentials";
 
         // Define the Headers
@@ -49,6 +51,13 @@ public class PayPalPlus {
         // Make the request
         ResponseEntity<String> result = restTemplate.exchange(url, HttpMethod.POST, bodyAndHeaders, String.class);
 
-        return result.toString();
+        // Create a response from return
+        try {
+            aToken = objectMapper.readValue(result.getBody(), PPResponse.class);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return aToken.getAccess_token();
     }
 }
