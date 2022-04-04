@@ -30,6 +30,7 @@ public class AuthToken {
     private String clientId;
     private String secret;
     private final ObjectMapper objectMapper = new ObjectMapper();
+    ResponseEntity<String> result;
     PPResponse aToken;
 
     @GetMapping("/aToken")
@@ -49,7 +50,7 @@ public class AuthToken {
         bodyAndHeaders = new HttpEntity<>(simpleBody, headers);
 
         // Make the request
-        ResponseEntity<String> result = restTemplate.exchange(url, HttpMethod.POST, bodyAndHeaders, String.class);
+        result = restTemplate.exchange(url, HttpMethod.POST, bodyAndHeaders, String.class);
 
         // Create a response from return
         try {
