@@ -19,7 +19,7 @@ import com.paypal.braintreeintegration.pojo.PPResponse;
 
 @SpringBootApplication
 @RestController
-public class PayPalPlus {
+public class AuthToken {
 
     private RestTemplate restTemplate = new RestTemplate();
     private String url;
