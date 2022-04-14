@@ -19,7 +19,6 @@
     <body onload="generateClientToken()">
         <a href="#" class="text-decoration-none">
             <div class="jumbotron text-center">
-                
                 <h1>PayPal Braintree Integration</h1>
                 <p>All PayPal Braintree integrations in only one location</p>
             </div>
@@ -117,7 +116,7 @@
                         <div class="card-body collapse col-sm-12 mx-auto" id="ppplusCard">
                             <div id="ppplus">
                             </div>
-                            <button id="continueButton"></button>                  
+                            <button class="btn btn-primary" id="continueButton" onclick="ppp.doContinue(); return false;">Submite Payment</button>          
                         </div>
                     </div>
                 </div>

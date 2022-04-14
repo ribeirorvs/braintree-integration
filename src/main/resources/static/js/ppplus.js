@@ -24,10 +24,34 @@ function takeAuthToken(){
                     "country": "BR",
                     "rememberedCards": "customerRememberedCardHash",
                     "enableContinue": "continueButton",
+                    "disableContinue": "continueButton"
                 });
             })
     });
 }
-/*
 
-*/
+if(window.addEventListener){
+    window.addEventListener("message", messageListener, false);
+    console.debug("addEventListener successful");
+} else if (window.attachtEvent){
+    window.attachtEvent("onmessage", messageListener);
+    console.log("attachEvent successful");
+} else {
+    console.log("Could not add or attach message listener")
+}
+
+function messageListener(event){
+    try {
+        var data = JSON.parse(event.data);
+        if(data['action'] == "checkout"){
+            console.log("Data: ");
+            console.info(data);
+            console.log("Result: ");
+            console.info(data['result']);
+        } else {
+            console.warn("Não ainda");
+        }
+    } catch(exc) {
+
+    }
+}
