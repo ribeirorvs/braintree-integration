@@ -41,12 +41,10 @@ public class CreatePayment {
         try {
             // Convert the json response in nodes and take only the approval url string
             node = new ObjectMapper().readTree(result.getBody());
-            node = node.get("links").get(1).get("href");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
-        return node.asText();
+        return node.get("links").toString();
     }
 
 }
