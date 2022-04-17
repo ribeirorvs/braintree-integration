@@ -52,9 +52,6 @@ function messageListener(event){
     try {
         var data = JSON.parse(event.data);
         if(data['action'] == "checkout"){
-            console.log(data['result']['payer']['payer_info']['payer_id']);
-            console.log(executeUrl);
-            console.log(token);
             $.ajax({
                 type: 'GET',
                 url: '/execute-payment',
